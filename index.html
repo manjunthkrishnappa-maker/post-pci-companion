@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>HeartCare Elite | Precision Cardiac Recovery</title>
+  <title>HeartCare | Post-PCI Clinical Recovery Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
@@ -13,29 +13,28 @@
 
   <style>
     :root {
-      --primary-accent: #00f2fe;
-      --deep-space: #06090f;
-      --glass-bg: rgba(255, 255, 255, 0.03);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --cardiology-red: #ff3b3b;
-      --text-main: #f8f9fa;
+      --medical-blue: #0052cc;
+      --clinical-cyan: #00f2fe;
+      --deep-navy: #060a12;
+      --heart-red: #ff3b3b;
+      --glass-white: rgba(255, 255, 255, 0.04);
+      --glass-border: rgba(255, 255, 255, 0.1);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
 
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background: var(--deep-space);
-      color: var(--text-main);
+      background: var(--deep-navy);
+      color: #ffffff;
       overflow-x: hidden;
       line-height: 1.6;
     }
 
-    /* THE IMMERSIVE BACKGROUND */
-    .hero-bg {
+    /* THE IMMERSIVE CLINICAL BACKGROUND */
+    .video-bg {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      inset: 0;
       z-index: -3;
       background: #000;
     }
@@ -43,225 +42,222 @@
     video {
       width: 100%; height: 100%;
       object-fit: cover;
-      filter: brightness(0.35) contrast(1.1);
+      filter: brightness(0.3) saturate(0.7);
     }
 
-    .mesh-overlay {
+    .gradient-overlay {
       position: fixed;
       inset: 0;
-      background-image: radial-gradient(at 0% 0%, rgba(0, 97, 255, 0.15) 0, transparent 50%), 
-                        radial-gradient(at 100% 100%, rgba(0, 242, 254, 0.1) 0, transparent 50%);
+      background: radial-gradient(circle at 70% 30%, rgba(0, 82, 204, 0.15) 0%, transparent 100%);
       z-index: -2;
     }
 
-    /* HEADER */
+    /* NAVIGATION */
     nav {
-      padding: 30px 10%;
+      padding: 40px 8%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: absolute;
+      position: fixed;
       width: 100%;
-      z-index: 10;
+      top: 0;
+      z-index: 100;
     }
 
     .logo {
       font-weight: 700;
-      font-size: 1.5rem;
-      letter-spacing: -1px;
+      font-size: 1.4rem;
+      letter-spacing: -0.5px;
+      color: #fff;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .logo i { color: var(--cardiology-red); animation: heartbeat 1.5s infinite; }
+    .logo i { color: var(--heart-red); }
 
-    @keyframes heartbeat {
-      0% { transform: scale(1); }
-      15% { transform: scale(1.3); }
-      30% { transform: scale(1); }
-      45% { transform: scale(1.15); }
-      60% { transform: scale(1); }
-    }
-
-    /* MAIN LAYOUT */
+    /* HERO SECTION */
     main {
-      padding: 120px 10% 60px;
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 40px;
+      padding: 0 8%;
       min-height: 100vh;
+      display: flex;
       align-items: center;
     }
 
-    .glass-panel {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+    .content-box {
+      max-width: 700px;
+      padding: 60px;
+      background: var(--glass-white);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
       border: 1px solid var(--glass-border);
       border-radius: 40px;
-      padding: 50px;
-      transition: transform 0.4s ease;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--clinical-cyan);
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     h1 {
-      font-size: 4rem;
+      font-size: 3.5rem;
       font-weight: 800;
-      line-height: 1;
+      line-height: 1.1;
       margin-bottom: 20px;
-      background: linear-gradient(to right, #ffffff, #8ab4f8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      letter-spacing: -1.5px;
     }
 
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(0, 242, 254, 0.1);
-      padding: 8px 16px;
-      border-radius: 100px;
-      color: var(--primary-accent);
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-      border: 1px solid rgba(0, 242, 254, 0.2);
+    .description {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 40px;
+      font-weight: 300;
     }
 
-    .status-dot {
-      width: 8px; height: 8px;
-      background: var(--primary-accent);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--primary-accent);
-    }
-
-    /* THE PROCESS STEPS */
-    .process-grid {
+    /* CAPABILITIES LIST */
+    .capabilities {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 40px;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
     }
 
-    .step-card {
-      padding: 20px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--glass-border);
-    }
-
-    .step-card i { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary-accent); }
-    .step-card h3 { font-size: 0.9rem; margin-bottom: 5px; }
-    .step-card p { font-size: 0.75rem; color: rgba(255,255,255,0.6); }
-
-    /* INFO SIDEBAR */
-    .sidebar-card {
+    .cap-item {
       display: flex;
-      flex-direction: column;
-      gap: 20px;
+      gap: 15px;
     }
 
-    .agent-bio {
-      padding: 30px;
-      border-radius: 30px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
-      border: 1px solid var(--glass-border);
+    .cap-item i {
+      font-size: 1.4rem;
+      color: var(--clinical-cyan);
+      margin-top: 4px;
     }
 
-    .agent-bio h2 { font-size: 1.2rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+    .cap-text h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
 
-    /* MESSENGER STYLING */
+    .cap-text p {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* TOOLTIP & TOGGLE INSTRUCTION */
+    .toggle-guide {
+      position: fixed;
+      bottom: 110px;
+      right: 40px;
+      background: var(--medical-blue);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 20px 20px 0 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0, 82, 204, 0.4);
+      animation: bounce 2s infinite;
+      z-index: 998;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* MESSENGER CUSTOMIZATION */
     df-messenger {
       z-index: 1000;
       position: fixed;
-      bottom: 40px; right: 40px;
-      --df-messenger-font-family: 'Plus Jakarta Sans';
+      bottom: 40px;
+      right: 40px;
+
       --df-messenger-chat-window-width: 440px;
       --df-messenger-chat-window-height: 650px;
-      --df-messenger-titlebar-background: #002D72;
-      --df-messenger-chat-background: #ffffff;
-      --df-messenger-message-bot-background: #f1f3f4;
-      --df-messenger-chat-border-radius: 32px;
+      --df-messenger-titlebar-background: #003399;
+      --df-messenger-chat-background: #fdfdfd;
+      --df-messenger-font-family: 'Plus Jakarta Sans';
+      --df-messenger-chat-border-radius: 24px;
     }
 
+    /* Heart Shape and Attractive Color for Toggle */
     df-messenger::part(bubble) {
-      background: linear-gradient(135deg, #0061ff 0%, #60efff 100%);
-      padding: 15px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 97, 255, 0.3);
+      background: linear-gradient(135deg, #0052cc 0%, #00f2fe 100%);
+      width: 65px;
+      height: 65px;
+      border-radius: 50% 50% 50% 0%; /* Modern medical droplet/heart hybrid */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 15px 35px rgba(0, 82, 204, 0.4);
+      transition: all 0.3s ease;
+      border: 3px solid rgba(255,255,255,0.2);
     }
 
-    @media (max-width: 1024px) {
-      main { grid-template-columns: 1fr; padding-top: 100px; }
-      h1 { font-size: 2.8rem; }
+    df-messenger::part(bubble):hover {
+      transform: scale(1.1) rotate(-5deg);
+      box-shadow: 0 20px 45px rgba(0, 242, 254, 0.5);
     }
   </style>
 </head>
 <body>
 
-  <div class="hero-bg">
+  <div class="video-bg">
     <video autoplay muted loop playsinline>
       <source src="background.mp4" type="video/mp4">
     </video>
   </div>
-  <div class="mesh-overlay"></div>
+  <div class="gradient-overlay"></div>
 
   <nav>
     <div class="logo">
-      <i class="fa-solid fa-heart-pulse"></i> HEARTCARE ELITE
+      <i class="fa-solid fa-heart-pulse"></i> POST-PCI COMMAND
     </div>
-    <div style="font-size: 0.8rem; opacity: 0.6; letter-spacing: 2px;">SECURE CLINICAL UPLINK</div>
   </nav>
 
   <main>
-    <div class="glass-panel">
-      <div class="status-badge">
-        <div class="status-dot"></div> ACTIVE MONITORING ON
+    <div class="content-box">
+      <div class="status-pill">
+        <i class="fa-solid fa-shield-halved"></i> Physician-Validated AI
       </div>
-      <h1>Elite Recovery Architecture.</h1>
-      <p style="margin-top: 20px; font-weight: 300; font-size: 1.2rem; color: rgba(255,255,255,0.7);">
-        Bridging the gap between the cath lab and your home. Our Dual-Mode Clinical Agent monitors your recovery with interventional precision and physician-level empathy.
+      <h1>Clinical Continuity.</h1>
+      <p class="description">
+        Your recovery doesn't end when you leave the hospital. Our integrated assistant provides 24/7 symptom monitoring and clinical inquiry support.
       </p>
 
-      <div class="process-grid">
-        <div class="step-card">
-          <i class="fa-solid fa-stethoscope"></i>
-          <h3>Daily Check-In</h3>
-          <p>Structured monitoring of ischemic & heart failure indicators.</p>
+      <div class="capabilities">
+        <div class="cap-item">
+          <i class="fa-solid fa-clipboard-check"></i>
+          <div class="cap-text">
+            <h3>Daily Safety Check-In</h3>
+            <p>A structured routine to track ischemic symptoms and hemodynamic stability.</p>
+          </div>
         </div>
-        <div class="step-card">
-          <i class="fa-solid fa-microchip"></i>
-          <h3>AI Triage</h3>
-          <p>Real-time analysis based on AHA/ACC clinical guidelines.</p>
-        </div>
-        <div class="step-card">
-          <i class="fa-solid fa-user-doctor"></i>
-          <h3>Physician Sync</h3>
-          <p>Instant escalation to your cardiology team for 🔴 status.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="sidebar-card">
-      <div class="agent-bio">
-        <h2><i class="fa-solid fa-robot" style="color: var(--primary-accent);"></i> The Assistant</h2>
-        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">
-          Your assistant is a <strong>Dual-Mode Clinical Agent</strong>. It is designed to be a supportive physician when you need comfort, and a precise safety officer when monitoring your recovery.
-        </p>
-      </div>
-      <div class="agent-bio" style="background: rgba(0, 242, 254, 0.05); border-color: rgba(0, 242, 254, 0.2);">
-        <h2 style="color: var(--primary-accent); font-size: 1rem;">LATEST CLINICAL SYNC</h2>
-        <div style="font-size: 0.75rem; display: flex; justify-content: space-between; margin-top: 10px;">
-          <span>Database Integrity</span>
-          <span style="color: var(--primary-accent);">VERIFIED</span>
-        </div>
-        <div style="font-size: 0.75rem; display: flex; justify-content: space-between; margin-top: 5px;">
-          <span>Clinical Guidelines</span>
-          <span>AHA/SCAI 2026</span>
+        <div class="cap-item">
+          <i class="fa-solid fa-comment-medical"></i>
+          <div class="cap-text">
+            <h3>Medical Inquiry Mode</h3>
+            <p>Immediate, evidence-based answers regarding your recovery and medications.</p>
+          </div>
         </div>
       </div>
     </div>
   </main>
+
+  <div class="toggle-guide">
+    Tap the heart to start your update <i class="fa-solid fa-arrow-down" style="margin-left: 8px;"></i>
+  </div>
 
   <df-messenger
     location="us-central1"
@@ -270,7 +266,7 @@
     language-code="en"
     max-query-length="-1">
     <df-messenger-chat-bubble 
-      chat-title="Recovery Command Center"
+      chat-title="Heart Recovery Portal"
       chat-icon="https://www.gstatic.com/images/icons/material/system/2x/favorite_white_24dp.png">
     </df-messenger-chat-bubble>
   </df-messenger>
