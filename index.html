@@ -1,164 +1,267 @@
-$htmlContent = @"
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>HeartCare | Elite Post-PCI Recovery Assistant</title>
+  <title>HeartCare Elite | Precision Cardiac Recovery</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
   <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
 
   <style>
     :root {
-      --primary-blue: #0061ff;
-      --deep-navy: #0a0e17;
-      --medical-cyan: #00f2fe;
-      --cardiology-blue: #002D72; /* Elite Title Bar Color */
+      --primary-accent: #00f2fe;
+      --deep-space: #06090f;
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --cardiology-red: #ff3b3b;
+      --text-main: #f8f9fa;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
 
     body {
-      font-family: 'Google Sans', 'Inter', sans-serif;
-      background: var(--deep-navy);
-      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--deep-space);
+      color: var(--text-main);
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
     }
 
-    /* THE IMMERSIVE VIDEO LAYER */
-    .video-container {
+    /* THE IMMERSIVE BACKGROUND */
+    .hero-bg {
       position: fixed;
       top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      z-index: -2;
+      width: 100%; height: 100%;
+      z-index: -3;
       background: #000;
     }
 
     video {
       width: 100%; height: 100%;
       object-fit: cover;
-      filter: brightness(0.4) saturate(0.8);
+      filter: brightness(0.35) contrast(1.1);
     }
 
-    .shader {
+    .mesh-overlay {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(10,14,23,0.8) 100%),
-                  linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(10,14,23,0.9) 100%);
-      z-index: -1;
+      background-image: radial-gradient(at 0% 0%, rgba(0, 97, 255, 0.15) 0, transparent 50%), 
+                        radial-gradient(at 100% 100%, rgba(0, 242, 254, 0.1) 0, transparent 50%);
+      z-index: -2;
     }
 
-    /* MAIN CLINICAL CARD SECTION */
-    section {
-      min-height: 100vh;
+    /* HEADER */
+    nav {
+      padding: 30px 10%;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 10%;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      width: 100%;
+      z-index: 10;
     }
 
-    .glass-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 32px;
-      padding: 60px;
-      max-width: 850px;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
-      animation: fadeInUp 1.2s ease-out;
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: -1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    .logo i { color: var(--cardiology-red); animation: heartbeat 1.5s infinite; }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      15% { transform: scale(1.3); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.15); }
+      60% { transform: scale(1); }
+    }
+
+    /* MAIN LAYOUT */
+    main {
+      padding: 120px 10% 60px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 40px;
+      padding: 50px;
+      transition: transform 0.4s ease;
     }
 
     h1 {
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      background: linear-gradient(90deg, #fff, #8ab4f8);
+      font-size: 4rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #ffffff, #8ab4f8);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: -0.02em;
     }
 
-    p {
-      font-size: 1.3rem;
-      color: rgba(255, 255, 255, 0.85);
-      margin-bottom: 35px;
-      font-weight: 300;
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 242, 254, 0.1);
+      padding: 8px 16px;
+      border-radius: 100px;
+      color: var(--primary-accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      border: 1px solid rgba(0, 242, 254, 0.2);
     }
 
-    /* --- ELITE CHAT UI OVERRIDES --- */
+    .status-dot {
+      width: 8px; height: 8px;
+      background: var(--primary-accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--primary-accent);
+    }
+
+    /* THE PROCESS STEPS */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .step-card {
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border);
+    }
+
+    .step-card i { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary-accent); }
+    .step-card h3 { font-size: 0.9rem; margin-bottom: 5px; }
+    .step-card p { font-size: 0.75rem; color: rgba(255,255,255,0.6); }
+
+    /* INFO SIDEBAR */
+    .sidebar-card {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .agent-bio {
+      padding: 30px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+      border: 1px solid var(--glass-border);
+    }
+
+    .agent-bio h2 { font-size: 1.2rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+
+    /* MESSENGER STYLING */
     df-messenger {
-      z-index: 999;
+      z-index: 1000;
       position: fixed;
-      bottom: 32px;
-      right: 32px;
-
-      /* Messenger Window Dimensions */
-      --df-messenger-chat-window-width: 420px;
-      --df-messenger-chat-window-height: 600px;
-      
-      /* Colors & Typography */
-      --df-messenger-font-family: 'Google Sans';
-      --df-messenger-titlebar-background: var(--cardiology-blue);
-      --df-messenger-chat-background: #F8F9FA;
-      --df-messenger-chat-border-radius: 28px;
-      --df-messenger-message-user-background: #E3F2FD;
-      --df-messenger-message-bot-background: #FFFFFF;
-      --df-messenger-chat-bubble-background: var(--primary-blue);
-      --df-messenger-font-color: #1f1f1f;
+      bottom: 40px; right: 40px;
+      --df-messenger-font-family: 'Plus Jakarta Sans';
+      --df-messenger-chat-window-width: 440px;
+      --df-messenger-chat-window-height: 650px;
+      --df-messenger-titlebar-background: #002D72;
+      --df-messenger-chat-background: #ffffff;
+      --df-messenger-message-bot-background: #f1f3f4;
+      --df-messenger-chat-border-radius: 32px;
     }
 
-    /* Heartbeat Pulse Effect on the Bubble */
     df-messenger::part(bubble) {
-      box-shadow: 0 0 0 0 rgba(0, 97, 255, 0.6);
-      animation: heartPulse 2.5s infinite cubic-bezier(0.66, 0, 0, 1);
-      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: linear-gradient(135deg, #0061ff 0%, #60efff 100%);
+      padding: 15px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 97, 255, 0.3);
     }
 
-    @keyframes heartPulse {
-      0% { box-shadow: 0 0 0 0 rgba(0, 97, 255, 0.6); }
-      70% { box-shadow: 0 0 0 15px rgba(0, 97, 255, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(0, 97, 255, 0); }
-    }
-
-    /* Window Shadow Depth */
-    df-messenger::part(widget-wrapper) {
-      box-shadow: 0 20px 50px rgba(0, 45, 114, 0.2);
-      border: 1px solid rgba(0, 45, 114, 0.05);
+    @media (max-width: 1024px) {
+      main { grid-template-columns: 1fr; padding-top: 100px; }
+      h1 { font-size: 2.8rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="video-container">
-    <video autoplay muted loop playsinline poster="fallback-image.jpg">
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline>
       <source src="background.mp4" type="video/mp4">
-      Your browser does not support the video tag.
     </video>
   </div>
+  <div class="mesh-overlay"></div>
 
-  <div class="shader"></div>
+  <nav>
+    <div class="logo">
+      <i class="fa-solid fa-heart-pulse"></i> HEARTCARE ELITE
+    </div>
+    <div style="font-size: 0.8rem; opacity: 0.6; letter-spacing: 2px;">SECURE CLINICAL UPLINK</div>
+  </nav>
 
-  <section>
-    <div class="glass-card">
-      <h1>Precision Recovery.</h1>
-      <p>
-        Advanced AI-driven clinical monitoring for post-procedure cardiac care. 
-        Your health progress is reviewed by our medical team in real-time.
+  <main>
+    <div class="glass-panel">
+      <div class="status-badge">
+        <div class="status-dot"></div> ACTIVE MONITORING ON
+      </div>
+      <h1>Elite Recovery Architecture.</h1>
+      <p style="margin-top: 20px; font-weight: 300; font-size: 1.2rem; color: rgba(255,255,255,0.7);">
+        Bridging the gap between the cath lab and your home. Our Dual-Mode Clinical Agent monitors your recovery with interventional precision and physician-level empathy.
       </p>
-      <div style="color: var(--medical-cyan); font-weight: 500; font-size: 1.1rem; letter-spacing: 0.5px;">
-        Start your daily check-in via the assistant →
+
+      <div class="process-grid">
+        <div class="step-card">
+          <i class="fa-solid fa-stethoscope"></i>
+          <h3>Daily Check-In</h3>
+          <p>Structured monitoring of ischemic & heart failure indicators.</p>
+        </div>
+        <div class="step-card">
+          <i class="fa-solid fa-microchip"></i>
+          <h3>AI Triage</h3>
+          <p>Real-time analysis based on AHA/ACC clinical guidelines.</p>
+        </div>
+        <div class="step-card">
+          <i class="fa-solid fa-user-doctor"></i>
+          <h3>Physician Sync</h3>
+          <p>Instant escalation to your cardiology team for 🔴 status.</p>
+        </div>
       </div>
     </div>
-  </section>
+
+    <div class="sidebar-card">
+      <div class="agent-bio">
+        <h2><i class="fa-solid fa-robot" style="color: var(--primary-accent);"></i> The Assistant</h2>
+        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">
+          Your assistant is a <strong>Dual-Mode Clinical Agent</strong>. It is designed to be a supportive physician when you need comfort, and a precise safety officer when monitoring your recovery.
+        </p>
+      </div>
+      <div class="agent-bio" style="background: rgba(0, 242, 254, 0.05); border-color: rgba(0, 242, 254, 0.2);">
+        <h2 style="color: var(--primary-accent); font-size: 1rem;">LATEST CLINICAL SYNC</h2>
+        <div style="font-size: 0.75rem; display: flex; justify-content: space-between; margin-top: 10px;">
+          <span>Database Integrity</span>
+          <span style="color: var(--primary-accent);">VERIFIED</span>
+        </div>
+        <div style="font-size: 0.75rem; display: flex; justify-content: space-between; margin-top: 5px;">
+          <span>Clinical Guidelines</span>
+          <span>AHA/SCAI 2026</span>
+        </div>
+      </div>
+    </div>
+  </main>
 
   <df-messenger
     location="us-central1"
@@ -167,14 +270,10 @@ $htmlContent = @"
     language-code="en"
     max-query-length="-1">
     <df-messenger-chat-bubble 
-      chat-title="Heart Recovery Assistant"
+      chat-title="Recovery Command Center"
       chat-icon="https://www.gstatic.com/images/icons/material/system/2x/favorite_white_24dp.png">
     </df-messenger-chat-bubble>
   </df-messenger>
 
 </body>
 </html>
-"@
-
-$htmlContent | Out-File -FilePath "index.html" -Encoding utf8
-Write-Host "Success: Final Elite index.html generated. Ready for GitHub upload." -ForegroundColor Cyan
