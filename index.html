@@ -18,6 +18,7 @@
       --deep-navy: #020617;
       --glass-white: rgba(255, 255, 255, 0.03);
       --glass-border: rgba(255, 255, 255, 0.08);
+      --insight-bg: rgba(0, 82, 204, 0.05);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
@@ -78,21 +79,21 @@
 
     .logo i { color: var(--clinical-cyan); text-shadow: 0 0 15px var(--medical-blue); }
 
-    /* MAIN CONTENT SCROLL */
+    /* MAIN CONTENT */
     main {
       padding: 140px 6% 100px;
       max-width: 1400px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
+      gap: 40px;
       align-items: start;
     }
 
     .hero-text h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
       font-weight: 800;
-      line-height: 1.05;
+      line-height: 1.1;
       margin-bottom: 25px;
       background: linear-gradient(to right, #ffffff, #94a3b8);
       -webkit-background-clip: text;
@@ -115,11 +116,35 @@
       margin-bottom: 20px;
     }
 
-    /* DETAILED CAPABILITIES CARDS */
+    /* CLINICAL INSIGHT BOX */
+    .insight-card {
+      background: var(--insight-bg);
+      border: 1px solid rgba(0, 242, 254, 0.15);
+      border-radius: 24px;
+      padding: 30px;
+      margin-top: 30px;
+    }
+
+    .insight-card h2 {
+      font-size: 1.1rem;
+      color: var(--clinical-cyan);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .insight-card p {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 400;
+    }
+
+    /* INFO CARDS */
     .info-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 25px;
+      gap: 20px;
     }
 
     .glass-card {
@@ -128,42 +153,26 @@
       -webkit-backdrop-filter: blur(25px);
       border: 1px solid var(--glass-border);
       border-radius: 30px;
-      padding: 40px;
+      padding: 35px;
       transition: all 0.3s ease;
-    }
-
-    .glass-card:hover {
-      border-color: rgba(0, 242, 254, 0.3);
-      transform: translateY(-5px);
     }
 
     .card-header {
       display: flex;
       align-items: center;
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-
-    .card-header i {
-      font-size: 2rem;
-      color: var(--clinical-cyan);
-    }
-
-    .card-header h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    .details-list {
-      list-style: none;
-    }
-
-    .details-list li {
+      gap: 15px;
       margin-bottom: 15px;
-      padding-left: 30px;
+    }
+
+    .card-header i { font-size: 1.8rem; color: var(--clinical-cyan); }
+    .card-header h2 { font-size: 1.4rem; font-weight: 700; }
+
+    .details-list { list-style: none; }
+    .details-list li {
+      margin-bottom: 12px;
+      padding-left: 25px;
       position: relative;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: rgba(255, 255, 255, 0.7);
     }
 
@@ -198,7 +207,7 @@
       50% { transform: translateY(-12px); }
     }
 
-    /* VIBRANT BLUE TOGGLE OVERRIDES */
+    /* MESSENGER OVERRIDES */
     df-messenger {
       z-index: 1000;
       position: fixed;
@@ -217,12 +226,6 @@
       border-radius: 50%;
       box-shadow: 0 15px 40px rgba(0, 82, 204, 0.4);
       border: 2px solid rgba(255, 255, 255, 0.15);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    df-messenger::part(bubble):hover {
-      transform: scale(1.1) rotate(5deg);
-      box-shadow: 0 20px 50px rgba(0, 242, 254, 0.6);
     }
 
     @media (max-width: 1100px) {
@@ -253,29 +256,30 @@
       <div class="status-badge">
         <i class="fa-solid fa-user-check"></i> Physician-Led Monitoring
       </div>
-      <h1>Continuous Post-PCI Care Architecture.</h1>
-      <p style="font-size: 1.25rem; color: rgba(255,255,255,0.6); margin-bottom: 40px; font-weight: 300;">
-        Bridging the critical 30-day recovery window with a Dual-Mode assistant designed to ensure your safety and answer your clinical concerns instantly.
-      </p>
-
-      <div class="glass-card" style="background: rgba(0, 180, 216, 0.03); border-color: rgba(0, 180, 216, 0.1);">
-        <h2 style="font-size: 1.1rem; margin-bottom: 15px; color: var(--clinical-cyan);">Physician Awareness Protocol</h2>
-        <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">
-          Every check-in is compiled into a <strong>Clinical Triage Report</strong>. Based on your responses, the system assigns a 🔴 EMERGENT, 🟡 URGENT, or 🟢 STABLE status, which is immediately synced to your cardiologist's dashboard for review and early intervention.
+      <h1>Post-PCI Continuity of Care.</h1>
+      
+      <div class="insight-card">
+        <h2><i class="fa-solid fa-microscope"></i> The Pathological Recovery Phase</h2>
+        <p>
+          It is important to understand that while a PCI (stent) restores blood flow, the biological healing of the heart tissue is an <strong>active pathological process</strong> that continues for approximately 30 days post-insult. Even if you feel normal, your heart is undergoing critical recovery. This assistant provides the active monitoring necessary to catch early warning signs during this vital window.
         </p>
       </div>
+
+      <p style="font-size: 1.1rem; color: rgba(255,255,255,0.6); margin-top: 30px; font-weight: 300;">
+        Bridging the gap between hospital discharge and recovery with evidence-based AI architecture.
+      </p>
     </div>
 
     <div class="info-grid">
       <div class="glass-card">
         <div class="card-header">
           <i class="fa-solid fa-file-waveform"></i>
-          <h2>Daily Check-In</h2>
+          <h2>Active Monitoring</h2>
         </div>
+        
         <ul class="details-list">
-          <li><b>Early Complication Detection:</b> Screens for Stent Thrombosis and Heart Failure symptoms using AHA-standardized queries.</li>
-          <li><b>Active Patient Involvement:</b> Explains the 'why' behind every question to help you recognize critical red flags at home.</li>
-          <li><b>Automated Physician Sync:</b> Summaries are stored in our secure database, allowing your care team to glance at depth-phenotypes of your symptoms.</li>
+          <li><b>Complication Screening:</b> Continuous tracking of stent stability and early heart failure indicators.</li>
+          <li><b>Triage Reporting:</b> Daily data is categorized (🔴/🟡/🟢) and synced for early physician intervention.</li>
         </ul>
       </div>
 
@@ -285,9 +289,8 @@
           <h2>Clinical Inquiry Mode</h2>
         </div>
         <ul class="details-list">
-          <li><b>Evidence-Based Answers:</b> Ask about medications (DAPT), activity limits, or site healing. All answers are grounded in 2026 AHA/ACC guidelines.</li>
-          <li><b>Zero Hallucination Policy:</b> The agent only uses peer-reviewed medical documents from your provider's knowledge base.</li>
-          <li><b>How to Utilize:</b> Use this to clarify "living room language" for medical jargon or to check if a specific sensation is normal during recovery.</li>
+          <li><b>Evidence-Based Clarity:</b> Grounded in 2026 AHA/ACC guidelines to answer questions on activity, meds, and healing.</li>
+          <li><b>Zero Hallucination:</b> Verified clinical documents ensure every answer is medically reliable.</li>
         </ul>
       </div>
     </div>
