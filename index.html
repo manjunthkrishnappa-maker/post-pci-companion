@@ -125,10 +125,18 @@
       --df-messenger-titlebar-background: var(--deep-navy); --df-messenger-font-family: 'Plus Jakarta Sans';
     }
 
+    /* Heartbeat Pulse Effect on the Messenger Toggle */
     df-messenger::part(bubble) {
       background: linear-gradient(135deg, var(--medical-blue) 0%, var(--clinical-cyan) 100%);
       width: 70px; height: 70px; border-radius: 50%;
       box-shadow: 0 15px 40px rgba(0, 82, 204, 0.4); border: 2px solid rgba(255, 255, 255, 0.15);
+      animation: heartPulse 1.8s infinite ease-in-out;
+    }
+
+    @keyframes heartPulse {
+      0% { transform: scale(1); box-shadow: 0 10px 25px rgba(0, 82, 204, 0.4); }
+      15% { transform: scale(1.1); box-shadow: 0 15px 35px rgba(0, 242, 254, 0.6); }
+      30% { transform: scale(1); box-shadow: 0 10px 25px rgba(0, 82, 204, 0.4); }
     }
 
     @media (max-width: 1100px) { main { grid-template-columns: 1fr; } }
@@ -158,10 +166,10 @@
       <div class="insight-card">
         <h2><i class="fa-solid fa-microscope"></i> The 30-Day Pathology Window</h2>
         <p>
-          Following an Myocardial Infarction (MI) and subsequent PCI, the heart tissue remains in an <b>active state of pathological remodeling</b>. The "insult" to the myocardium triggers inflammatory and fibrotic processes that do not cease simply because a stent has been placed.
+          Following a Myocardial Infarction (MI) and subsequent PCI, heart tissue remains in an <b>active state of pathological remodeling</b>. The "insult" to the myocardium triggers inflammatory and fibrotic processes that do not cease simply because a stent has been placed.
         </p>
         <p>
-          During this month-long recovery, the heart is exceptionally vulnerable to sub-acute complications. Active monitoring is not just a safety measure—it is a clinical necessity to ensure the long-term patency of your stent.
+          During this month-long recovery, the heart is exceptionally vulnerable to sub-acute complications. Active monitoring is a clinical necessity to ensure the long-term patency of your stent.
         </p>
         
         <div class="metric-grid">
@@ -199,7 +207,7 @@
           </li>
           <li>
             <b>The Benefit of Persistence:</b>
-            Studies published in the <i>Journal of the American College of Cardiology (JACC)</i> show that structured symptom tracking can reduce emergency department visits by up to **25%** through early outpatient intervention.
+            Studies published in the <i>JACC</i> show that structured symptom tracking can reduce emergency department visits by up to **25%** through early outpatient intervention.
           </li>
         </ul>
       </div>
@@ -209,18 +217,19 @@
           <i class="fa-solid fa-book-medical"></i>
           <h2>Evidence-Based Inquiry</h2>
         </div>
+        
         <ul class="details-list">
           <li>
             <b>Dual Antiplatelet Therapy (DAPT) Oversight:</b>
-            Our knowledge base is strictly aligned with the **2021 ACC/AHA/SCAI Guidelines**. If you have concerns about Aspirin, Plavix, Brilinta, or Effient, the agent provides verified dosing rationale.
+            Our knowledge base is strictly aligned with the **2021 ACC/AHA/SCAI Guidelines**. We provide verified dosing rationale for Aspirin, Plavix, Brilinta, or Effient.
           </li>
           <li>
             <b>Activity & Physical Recovery:</b>
-            Guidance on driving, lifting limits, and cardiac rehabilitation is sourced from the **SCAI Patient Education** publications to ensure you return to activity without stressing the access site.
+            Guidance on driving and physical limits is sourced from the **SCAI Patient Education** publications to ensure a safe return to activity.
           </li>
           <li>
             <b>Physician Sync Architecture:</b>
-            Every interaction is logged in a secure HIPAA-compliant database. Your cardiologist can "glance" at the depth-phenotypes of your symptoms to make early clinical decisions.
+            Every interaction is logged in a secure database. Your cardiologist can "glance" at depth-phenotypes of symptoms to make early clinical decisions.
           </li>
         </ul>
       </div>
