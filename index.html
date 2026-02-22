@@ -155,42 +155,25 @@
     .modal-content h2 { color: var(--metric-red); font-size: 2rem; margin-bottom: 15px; }
     .modal-btn { background: var(--metric-red); color: white; padding: 15px 30px; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; margin-top: 20px; width: 100%; }
 
-   /* --- INTEGRATED NEW DIALOGFLOW MESSENGER SETTINGS --- */
+    /* --- MESSENGER SNIPPET STYLES --- */
     df-messenger {
       z-index: 999;
       position: fixed;
       bottom: 16px;
       right: 16px;
       
-      /* Sizing, Font & Curved Edges */
-      --df-messenger-font-family: 'Google Sans', 'Plus Jakarta Sans', sans-serif;
+      /* Applying your chosen console snippet parameters */
+      --df-messenger-font-color: #0052cc;
+      --df-messenger-font-family: Google Sans;
+      --df-messenger-chat-background: #020617;
+      --df-messenger-message-user-background: #00f2fe;
+      --df-messenger-message-bot-background: #1e293b;
+      
+      /* Maintain desktop-friendly size */
       --df-messenger-chat-window-width: 420px; 
       --df-messenger-chat-window-height: 650px; 
-      --df-messenger-chat-window-border-radius: 24px; /* FIX 1: Smoothly curves the sharp edges of the widget */
-
-      /* Global Window Background */
-      --df-messenger-chat-background: #020617;
-      
-      /* Title Bar */
-      --df-messenger-titlebar-background: #0052cc;
-      --df-messenger-titlebar-title-font-color: #ffffff;
-      --df-messenger-titlebar-icon-color: #ffffff;
-      
-      /* Agent Response (AI) */
-      --df-messenger-message-bot-background: #1e293b;
-      --df-messenger-message-bot-font-color: #ffffff;
-      
-      /* Patient Input (User) */
-      --df-messenger-message-user-background: #00f2fe;
-      --df-messenger-message-user-font-color: #020617;
-      
-      /* FIX 2: Typing Area Visibility */
-      --df-messenger-input-background: #1e293b;       /* Makes the typing box a visible dark slate */
-      --df-messenger-input-font-color: #ffffff;       /* Makes the text you type crisp white */
-      --df-messenger-send-icon-color: #00f2fe;        /* Makes the send button glow cyan */
     }
 
-    /* Maintained the glowing pulse animation for the chat button */
     df-messenger::part(bubble) { 
       background: linear-gradient(135deg, var(--medical-blue) 0%, var(--clinical-cyan) 100%); 
       width: 65px; 
@@ -393,14 +376,17 @@
     let lastCheckIn = localStorage.getItem('hc_last_date');
 
     function renderStreak() {
-      document.getElementById('streak-text').innerText = currentStreak;
+      const ringText = document.getElementById('streak-text');
+      const ringDesc = document.getElementById('streak-desc');
+      const ring = document.getElementById('streak-ring');
       
-      if(currentStreak > 0) {
-        document.getElementById('streak-desc').innerText = `${currentStreak} out of 30 days completed. Keep logging in to stay protected.`;
+      if(ringText) ringText.innerText = currentStreak;
+      if(currentStreak > 0 && ringDesc) {
+        ringDesc.innerText = `${currentStreak} out of 30 days completed. Keep logging in to stay protected.`;
       }
       
       const percentage = Math.min((currentStreak / 30) * 100, 100);
-      document.getElementById('streak-ring').style.background = `conic-gradient(var(--clinical-cyan) ${percentage}%, rgba(255,255,255,0.1) 0)`;
+      if(ring) ring.style.background = `conic-gradient(var(--clinical-cyan) ${percentage}%, rgba(255,255,255,0.1) 0)`;
     }
 
     function recordCheckIn() {
@@ -451,19 +437,22 @@
     const riskValue = document.getElementById('risk-value');
     const checkinCount = document.getElementById('checkin-count');
 
-    slider.addEventListener('input', (e) => {
-      const checkins = e.target.value;
-      checkinCount.innerText = checkins;
-      
-      let risk = 4.7 - (checkins * 0.5); 
-      if (risk < 1.2) risk = 1.2;
+    if(slider) {
+      slider.addEventListener('input', (e) => {
+        const checkins = e.target.value;
+        if(checkinCount) checkinCount.innerText = checkins;
+        
+        let risk = 4.7 - (checkins * 0.5); 
+        if (risk < 1.2) risk = 1.2;
 
-      riskValue.innerText = risk.toFixed(1) + "%";
-      
-      if (risk > 3.5) riskValue.style.color = "var(--metric-red)";
-      else if (risk > 2.0) riskValue.style.color = "#ffa500";
-      else riskValue.style.color = "var(--stable-green)";
-    });
+        if(riskValue) {
+          riskValue.innerText = risk.toFixed(1) + "%";
+          if (risk > 3.5) riskValue.style.color = "var(--metric-red)";
+          else if (risk > 2.0) riskValue.style.color = "#ffa500";
+          else riskValue.style.color = "var(--stable-green)";
+        }
+      });
+    }
 
     // --- 4. TIMELINE LOGIC ---
     function calculateTimeline() {
@@ -487,7 +476,8 @@
         document.getElementById('tl-week4').classList.add('active');
       }
     }
-    document.getElementById('procedure-date').valueAsDate = new Date();
+    const procDateInput = document.getElementById('procedure-date');
+    if(procDateInput) procDateInput.valueAsDate = new Date();
 
     // --- 5. MEDICATION TRACKER LOGIC ---
     function togglePill(id) {
@@ -503,8 +493,8 @@
         btn.classList.add('missed'); 
         btn.innerHTML = `<i class="fa-solid fa-times-circle"></i><span>Missed</span>`;
         
-        alertBox.style.display = 'block';
-        setTimeout(() => { openChat(); alertBox.style.display = 'none'; }, 2000);
+        if(alertBox) alertBox.style.display = 'block';
+        setTimeout(() => { openChat(); if(alertBox) alertBox.style.display = 'none'; }, 2000);
       } 
       else {
         btn.classList.remove('missed'); 
@@ -513,8 +503,8 @@
     }
 
     // --- 6. SOS MODAL LOGIC ---
-    function openSOS() { document.getElementById('sosModal').style.display = 'flex'; }
-    function closeSOS() { document.getElementById('sosModal').style.display = 'none'; }
+    function openSOS() { const mod = document.getElementById('sosModal'); if(mod) mod.style.display = 'flex'; }
+    function closeSOS() { const mod = document.getElementById('sosModal'); if(mod) mod.style.display = 'none'; }
   </script>
 
 </body>
