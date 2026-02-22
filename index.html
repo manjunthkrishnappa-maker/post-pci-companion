@@ -155,38 +155,14 @@
     .modal-content h2 { color: var(--metric-red); font-size: 2rem; margin-bottom: 15px; }
     .modal-btn { background: var(--metric-red); color: white; padding: 15px 30px; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; margin-top: 20px; width: 100%; }
 
-    /* MESSENGER OVERRIDES (FORCED DARK THEME) */
+    /* MESSENGER OVERRIDES (CLEANED FOR CONSOLE CONTROL) */
     df-messenger { 
       z-index: 1000; 
       position: fixed; 
       bottom: 30px; 
       right: 30px; 
-      
-      /* Sizing & Font */
       --df-messenger-chat-window-width: 420px; 
       --df-messenger-chat-window-height: 650px; 
-      --df-messenger-font-family: 'Google Sans', 'Plus Jakarta Sans', sans-serif;
-      
-      /* Global Background */
-      --df-messenger-chat-background: #020617;
-      
-      /* Title Bar */
-      --df-messenger-titlebar-background: #0052cc;
-      --df-messenger-titlebar-title-font-color: #ffffff;
-      
-      /* Patient (User) Messages */
-      --df-messenger-user-message-background: #00f2fe;
-      --df-messenger-user-message-font-color: #020617;
-      
-      /* AI (Agent) Messages */
-      --df-messenger-bot-message-background: #1e293b;
-      --df-messenger-bot-message-font-color: #ffffff;
-      
-      /* Input Area */
-      --df-messenger-send-icon-color: #00f2fe;
-      --df-messenger-input-background: rgba(255, 255, 255, 0.05);
-      --df-messenger-input-font-color: #ffffff;
-      --df-messenger-input-placeholder-font-color: rgba(255, 255, 255, 0.5);
     }
 
     df-messenger::part(bubble) { 
@@ -203,6 +179,7 @@
       0%, 100% { transform: scale(1); } 
       50% { transform: scale(1.08); box-shadow: 0 15px 35px rgba(0, 242, 254, 0.6); } 
     }
+
     @media (max-width: 1200px) { main { grid-template-columns: 1fr; } }
   </style>
 </head>
