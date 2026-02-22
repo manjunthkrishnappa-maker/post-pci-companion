@@ -155,23 +155,19 @@
     .modal-content h2 { color: var(--metric-red); font-size: 2rem; margin-bottom: 15px; }
     .modal-btn { background: var(--metric-red); color: white; padding: 15px 30px; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; margin-top: 20px; width: 100%; }
 
-    /* --- MESSENGER SNIPPET STYLES --- */
+    /* --- INTEGRATED NEW DIALOGFLOW CHAT UI (Line 173) --- */
     df-messenger {
       z-index: 999;
       position: fixed;
-      bottom: 16px;
-      right: 16px;
-      
-      /* Applying your chosen console snippet parameters */
-      --df-messenger-font-color: #0052cc;
-      --df-messenger-font-family: Google Sans;
-      --df-messenger-chat-background: #020617;
-      --df-messenger-message-user-background: #00f2fe;
-      --df-messenger-message-bot-background: #1e293b;
-      
-      /* Maintain desktop-friendly size */
+      --df-messenger-font-color: #000;
+      --df-messenger-font-family: Google Sans, 'Plus Jakarta Sans', sans-serif;
+      --df-messenger-chat-background: #f3f6fc;
+      --df-messenger-message-user-background: #d3e3fd;
+      --df-messenger-message-bot-background: #fff;
       --df-messenger-chat-window-width: 420px; 
       --df-messenger-chat-window-height: 650px; 
+      bottom: 16px;
+      right: 16px;
     }
 
     df-messenger::part(bubble) { 
@@ -264,8 +260,8 @@
         <div class="ai-profile-header">
           <div class="ai-avatar"><i class="fa-solid fa-robot"></i></div>
           <div class="ai-title">
-            <h2>AI Recovery Assistant</h2>
-            <span>Your Personal Care Navigator</span>
+            <h2>AI Health Navigator</h2>
+            <span>Your Personal Recovery Navigator</span>
           </div>
         </div>
 
@@ -364,10 +360,7 @@
     agent-id="17fa7a25-1eaf-4592-a58c-92edb37ee06b"
     language-code="en"
     max-query-length="-1">
-    <df-messenger-chat-bubble
-      chat-title="AI Recovery Assistant"
-      chat-title-icon="https://www.gstatic.com/images/icons/material/system/2x/favorite_white_24dp.png">
-    </df-messenger-chat-bubble>
+    <df-messenger-chat-bubble chat-title="HeartCare Navigator"></df-messenger-chat-bubble>
   </df-messenger>
 
   <script>
