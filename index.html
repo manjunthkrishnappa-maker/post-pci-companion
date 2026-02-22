@@ -18,7 +18,6 @@
       --deep-navy: #020617;
       --glass-white: rgba(255, 255, 255, 0.03);
       --glass-border: rgba(255, 255, 255, 0.1);
-      --insight-bg: rgba(0, 82, 204, 0.05);
       --metric-red: #ff4d4d;
       --timeline-dot: #00f2fe;
       --stable-green: #00d97e;
@@ -78,8 +77,11 @@
       border: 1px solid var(--glass-border); border-radius: 24px; padding: 30px; margin-bottom: 30px;
     }
 
-    /* COLUMN 1: MOTIVATION & STATS */
-    .hero-text h1 { font-size: 2.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(to right, #ffffff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    /* COLUMN 1: MOTIVATION & BIOLOGY */
+    .hero-text h1 { font-size: 2.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 15px; background: linear-gradient(to right, #ffffff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    .biology-card { background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 20px; padding: 25px; margin-top: 25px; }
+    .biology-card h3 { color: var(--clinical-cyan); font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
     
     .slider-container { margin-top: 20px; }
     .slider-container label { font-size: 0.85rem; font-weight: 700; color: var(--clinical-cyan); text-transform: uppercase; letter-spacing: 1px; }
@@ -123,7 +125,7 @@
     .pill-btn.missed i { color: var(--metric-red); }
 
     /* COLUMN 3: GAMIFIED TIMELINE */
-    .timeline-sidebar { position: sticky; top: 100px; }
+    .timeline-sidebar { position: sticky; top: 100px; padding: 30px; }
     .date-picker-box { background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.2); padding: 15px; border-radius: 12px; margin-bottom: 25px; }
     .date-picker-box label { display: block; font-size: 0.8rem; text-transform: uppercase; color: var(--clinical-cyan); font-weight: 700; margin-bottom: 8px; }
     
@@ -190,8 +192,17 @@
         <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">Bridging the critical 30-day gap between your procedure and your next clinic visit.</p>
       </div>
       
-      <div class="glass-card" style="margin-top: 30px;">
-        <h3 style="color: var(--clinical-cyan); margin-bottom: 10px;"><i class="fa-solid fa-chart-line"></i> The Power of Monitoring</h3>
+      <div class="biology-card">
+        <h3><i class="fa-solid fa-microscope"></i> Inside Your Artery: The Healing Window</h3>
+        <p style="font-size: 0.9rem; color: rgba(255,255,255,0.85);">
+          Your heart is doing incredible work right now. Just like a small scratch on your hand heals by forming a protective scab, your artery is actively building a smooth, natural lining of cells over your new stent. 
+          <br><br>
+          This delicate process (called <i>endothelialization</i>) is why taking your blood thinners exactly as prescribed is so vital—it keeps the blood flowing perfectly while your body completes the seal.
+        </p>
+      </div>
+      
+      <div class="glass-card" style="margin-top: 25px; padding: 25px;">
+        <h3 style="color: var(--clinical-cyan); margin-bottom: 5px;"><i class="fa-solid fa-chart-line"></i> The Power of Monitoring</h3>
         <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">See how daily AI check-ins impact your statistical readmission risk over 30 days.</p>
         
         <div class="slider-container">
@@ -296,22 +307,24 @@
       </div>
       
       <div id="tl-week1" class="timeline-item active">
-        <h3>Week 1: The Acute Window</h3>
-        <p>Biological focus on hemostasis and acute stent integration.</p>
-        <span class="risk-tag tag-red">MAX RISK: STENT THROMBOSIS</span>
+        <h3>Week 1: Initial Healing</h3>
+        <p>Your heart is getting used to the new stent, and your access site is sealing. Strict medication use is vital.</p>
+        <span class="risk-tag tag-red"><i class="fa-solid fa-pills"></i> FOCUS: REST & MEDS</span>
       </div>
 
       <div id="tl-week2" class="timeline-item">
-        <h3>Week 2-3: Remodeling Phase</h3>
-        <p>Myocardium stabilizes. Inflammatory markers begin to trend toward baseline.</p>
-        <span class="risk-tag tag-yellow">MONITOR: EXERTIONAL DYSPNEA</span>
+        <h3>Week 2-3: Finding Your Rhythm</h3>
+        <p>Internal inflammation goes down as your heart muscle stabilizes. You should slowly regain your daily energy.</p>
+        <span class="risk-tag tag-yellow"><i class="fa-solid fa-lungs"></i> MONITOR: YOUR BREATHING</span>
       </div>
 
       <div id="tl-week4" class="timeline-item" style="border-left-color: transparent;">
-        <h3>Week 4: Endothelialization</h3>
-        <p>Final phase of vessel healing. Transition to long-term DAPT persistence.</p>
-        <span class="risk-tag tag-green">GOAL: CARDIAC REHAB</span>
+        <h3>Week 4: The Protective Layer</h3>
+        <p>Your body is actively building a healthy, natural layer of cells over your stent, making it a permanent part of you.</p>
+        <span class="risk-tag tag-green"><i class="fa-solid fa-person-running"></i> GOAL: CARDIAC REHAB</span>
       </div>
+      
+      <p style="font-size: 0.7rem; opacity: 0.5; margin-top: 20px;">*Source: 2025 ACC/AHA/ACEP/NAEMSP/SCAI ACS Guidelines</p>
     </aside>
 
   </main>
@@ -346,16 +359,16 @@
 
     function recordCheckIn() {
       const today = new Date().toDateString();
-      if (lastCheckIn === today) return; // Already checked in today
+      if (lastCheckIn === today) return; 
 
       if (lastCheckIn) {
         const lastDate = new Date(lastCheckIn);
         const diffDays = Math.ceil(Math.abs(new Date() - lastDate) / (1000 * 60 * 60 * 24));
         
         if (diffDays === 1) currentStreak++; 
-        else if (diffDays > 1) currentStreak = 1; // Broken streak, restart
+        else if (diffDays > 1) currentStreak = 1; 
       } else {
-        currentStreak = 1; // First time ever
+        currentStreak = 1; 
       }
       
       lastCheckIn = today;
@@ -364,7 +377,6 @@
       renderStreak();
     }
     
-    // Initialize streak on load
     document.addEventListener('DOMContentLoaded', renderStreak);
 
     // --- 2. SHADOW DOM PIERCING FOR CHAT ---
@@ -372,10 +384,8 @@
       try {
         const bubble = document.querySelector('df-messenger-chat-bubble');
         if (bubble && bubble.shadowRoot) {
-          // Find the hidden chat button inside the Google Shadow DOM and click it
           const hiddenButton = bubble.shadowRoot.querySelector('button') || bubble.shadowRoot.querySelector('.chat-wrapper');
           if (hiddenButton) {
-            // Only click if it's currently closed
             if(hiddenButton.getAttribute('aria-expanded') === 'false' || !hiddenButton.classList.contains('is-open')) {
                 hiddenButton.click();
             }
@@ -385,7 +395,6 @@
         console.error("Shadow DOM Error: Could not automatically open chat window.", e);
       }
 
-      // If they clicked the Daily Check-in button, gamify it by increasing the streak!
       if (actionType === 'checkin') {
         recordCheckIn();
       }
