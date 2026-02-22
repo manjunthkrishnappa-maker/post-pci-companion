@@ -155,16 +155,26 @@
     .modal-content h2 { color: var(--metric-red); font-size: 2rem; margin-bottom: 15px; }
     .modal-btn { background: var(--metric-red); color: white; padding: 15px 30px; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; margin-top: 20px; width: 100%; }
 
-    /* MESSENGER OVERRIDES (CLEANED FOR CONSOLE CONTROL) */
-    df-messenger { 
-      z-index: 1000; 
-      position: fixed; 
-      bottom: 30px; 
-      right: 30px; 
+    /* --- INTEGRATED NEW DIALOGFLOW MESSENGER SETTINGS --- */
+    df-messenger {
+      z-index: 999;
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      
+      /* Exact settings from Dialogflow Console Export */
+      --df-messenger-font-color: #0052cc;
+      --df-messenger-font-family: Google Sans, 'Plus Jakarta Sans', sans-serif;
+      --df-messenger-chat-background: #020617;
+      --df-messenger-message-user-background: #00f2fe;
+      --df-messenger-message-bot-background: #1e293b;
+      
+      /* Maintained window dimensions for optimal reading */
       --df-messenger-chat-window-width: 420px; 
       --df-messenger-chat-window-height: 650px; 
     }
 
+    /* Maintained the glowing pulse animation for the chat button */
     df-messenger::part(bubble) { 
       background: linear-gradient(135deg, var(--medical-blue) 0%, var(--clinical-cyan) 100%); 
       width: 65px; 
@@ -355,9 +365,9 @@
     agent-id="17fa7a25-1eaf-4592-a58c-92edb37ee06b"
     language-code="en"
     max-query-length="-1">
-    <df-messenger-chat-bubble 
-      chat-title="Recovery Command Center"
-      chat-icon="https://www.gstatic.com/images/icons/material/system/2x/favorite_white_24dp.png">
+    <df-messenger-chat-bubble
+      chat-title="AI Recovery Assistant"
+      chat-title-icon="https://www.gstatic.com/images/icons/material/system/2x/favorite_white_24dp.png">
     </df-messenger-chat-bubble>
   </df-messenger>
 
