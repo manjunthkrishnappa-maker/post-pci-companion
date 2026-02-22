@@ -162,31 +162,32 @@
       bottom: 16px;
       right: 16px;
       
-      /* Sizing & Font */
+      /* Sizing, Font & Curved Edges */
       --df-messenger-font-family: 'Google Sans', 'Plus Jakarta Sans', sans-serif;
       --df-messenger-chat-window-width: 420px; 
       --df-messenger-chat-window-height: 650px; 
+      --df-messenger-chat-window-border-radius: 24px; /* FIX 1: Smoothly curves the sharp edges of the widget */
 
       /* Global Window Background */
       --df-messenger-chat-background: #020617;
       
-      /* FIX 1: Title Bar Colors (Overrides the default white) */
+      /* Title Bar */
       --df-messenger-titlebar-background: #0052cc;
       --df-messenger-titlebar-title-font-color: #ffffff;
       --df-messenger-titlebar-icon-color: #ffffff;
       
-      /* FIX 2: Agent Response (White text on dark slate background) */
+      /* Agent Response (AI) */
       --df-messenger-message-bot-background: #1e293b;
       --df-messenger-message-bot-font-color: #ffffff;
       
-      /* FIX 3: Patient Input (Dark text on bright cyan background) */
+      /* Patient Input (User) */
       --df-messenger-message-user-background: #00f2fe;
       --df-messenger-message-user-font-color: #020617;
       
-      /* Typing Area (Dark input box with glowing send arrow) */
-      --df-messenger-input-background: #020617;
-      --df-messenger-input-font-color: #ffffff;
-      --df-messenger-send-icon-color: #00f2fe;
+      /* FIX 2: Typing Area Visibility */
+      --df-messenger-input-background: #1e293b;       /* Makes the typing box a visible dark slate */
+      --df-messenger-input-font-color: #ffffff;       /* Makes the text you type crisp white */
+      --df-messenger-send-icon-color: #00f2fe;        /* Makes the send button glow cyan */
     }
 
     /* Maintained the glowing pulse animation for the chat button */
